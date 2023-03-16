@@ -10,6 +10,9 @@ https://spark.apache.org/docs/latest/running-on-kubernetes.html
 **Spark operator by google**
 https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/user-guide.md
 
+Jupyterhub on kubernetes operator docs
+https://z2jh.jupyter.org/en/stable/
+
 ## Install
 1. Install docker
 https://docs.docker.com/get-docker/
