@@ -8,7 +8,7 @@
 
 # Run spark job as a test on kubernetes
 spark-submit \
-          --master k8s://https://127.0.0.1:45065 \
+          --master k8s://https://127.0.0.1:8001 \
           --deploy-mode cluster \
           --name spark-pi \
           --class org.apache.spark.examples.SparkPi \

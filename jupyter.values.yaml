@@ -1,8 +1,11 @@
 singleuser:
   image:
-    name: jupyter/all-spark-notebook
+    # name: jupyter/all-spark-notebook
+    # tag: spark-3.1.1
+    name: jupyter/pyspark-notebook
     tag: latest
   extraEnv:
     EDITOR: "vim"
     SPARK_MASTER_IP: "k8s://https://127.0.0.1:39287"
     SPARK_SUBMIT_DEPLOY_MODE: "cluster"
+  cmd: null
