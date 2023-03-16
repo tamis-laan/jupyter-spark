@@ -2,24 +2,24 @@
 
 from pyspark.sql import SparkSession
 
-# LOCAL RUN
-spark = SparkSession.builder \
-    .master('local') \
-    .appName("Word Count") \
-    .config("spark.submit.deployMode", "client") \
-    .getOrCreate()
+# # LOCAL RUN
+# spark = SparkSession.builder \
+#     .master('local') \
+#     .appName("Word Count") \
+#     .config("spark.submit.deployMode", "client") \
+#     .getOrCreate()
 
-df = spark.sql("select 'spark' as hello")
+# df = spark.sql("select 'spark' as hello")
 
-df.show()
+# df.show()
 
 # CLUSTER RUN
 spark = SparkSession.builder \
-    .master("k8s://https://127.0.0.1:38475") \
+    .master("k8s://http://127.0.0.1:8001") \
     .appName("Word Count") \
-    .config("spark.submit.deployMode","client") \
+    .config("spark.submit.deployMode","cluster") \
     .config("spark.executor.instances", 5) \
-    .config("spark.kubernetes.container.image", "gcr.io/spark/spark:v3.1.1") \
+    .config("spark.kubernetes.container.image", "datamechanics/spark:3.2-latest") \
     .getOrCreate()
 
 df = spark.sql("select 'spark' as hello")
