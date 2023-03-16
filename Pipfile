@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pyspark = "*"
+
+[dev-packages]
+black = "*"
+pyright = "*"
+pylint = "*"
+
+[requires]
+python_version = "3.10"
+
+[scripts]
+main="python src/main.py"

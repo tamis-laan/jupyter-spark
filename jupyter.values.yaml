@@ -1,0 +1,5 @@
+singleuser:
+  extraEnv:
+    EDITOR: "vim"
+    SPARK_MASTER_IP: "k8s://https://127.0.0.1:39287"
+    SPARK_SUBMIT_DEPLOY_MODE: "cluster"
