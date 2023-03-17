@@ -2,6 +2,27 @@
 
 from pyspark.sql import SparkSession
 
+# CLUSTER RUN
+spark = SparkSession.builder \
+    .master("k8s://https://172.20.0.2:6443") \
+    .appName("Word Count") \
+    .config("spark.submit.deployMode","client") \
+    .config("spark.executor.instances", 5) \
+    .config("spark.kubernetes.container.image", "datamechanics/spark:3.2-latest") \
+    .config("spark.kubernetes.authenticate.driver.serviceAccountName", "jupyter-notebook-sa") \
+    .config("spark.kubernetes.authenticate.serviceAccountName", "jupyter-notebook-sa") \
+    .config("spark.kubernetes.namespace", "default") \
+    .config("spark.driver.port", "2222") \
+    .config("spark.driver.blockManager.port", "7777") \
+    .config("spark.driver.host", "driver-service.default.svc.cluster.local") \
+    .config("spark.driver.bindAddress", "0.0.0.0") \
+    .getOrCreate()
+
+df = spark.sql("select 'spark' as hello")
+
+df.show()
+
+
 # # LOCAL RUN
 # spark = SparkSession.builder \
 #     .master('local') \
@@ -12,16 +33,3 @@ from pyspark.sql import SparkSession
 # df = spark.sql("select 'spark' as hello")
 
 # df.show()
-
-# CLUSTER RUN
-spark = SparkSession.builder \
-    .master("k8s://http://127.0.0.1:8001") \
-    .appName("Word Count") \
-    .config("spark.submit.deployMode","cluster") \
-    .config("spark.executor.instances", 5) \
-    .config("spark.kubernetes.container.image", "datamechanics/spark:3.2-latest") \
-    .getOrCreate()
-
-df = spark.sql("select 'spark' as hello")
-
-df.show()

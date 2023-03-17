@@ -1,12 +1,27 @@
+# hub:
+#   extraConfig:
+#     kubespawner:
+#       auth_state_hook: "kubespawner.auth.KubeAuthStateHook"
+#       service_account: "jupyter-notebook-sa"
+#       service_account_secret: "<SECRET_NAME>"
+
 singleuser:
+  cpu:
+    limit: 1
+    guarantee: 0.5
+  memory:
+    limit: 2G
+    guarantee: 1G
+  defaultUrl: "/lab"
+  serviceAccountName: jupyter-notebook-sa
   image:
     # name: jupyter/all-spark-notebook
     # tag: spark-3.1.1
     name: jupyter/pyspark-notebook
     tag: latest
+    pullPolicy: IfNotPresent
   extraEnv:
     EDITOR: "vim"
     SPARK_MASTER_IP: "k8s://https://172.20.0.2:6443"
     SPARK_SUBMIT_DEPLOY_MODE: "client"
   cmd: null
-  serviceAccountName: jupyter-notebook-sa
