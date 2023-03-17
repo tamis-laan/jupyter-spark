@@ -2,7 +2,7 @@
 
 from pyspark.sql import SparkSession
 
-# CLUSTER RUN
+# Open spark session
 spark = SparkSession.builder \
     .master("k8s://https://172.20.0.2:6443") \
     .appName("Word Count") \
@@ -19,21 +19,12 @@ spark = SparkSession.builder \
     .getOrCreate()
 
 
-# CLUSTER RUN
+# Open spark session with default values
 # spark = SparkSession.builder.appName("DERP").getOrCreate()
 
 df = spark.sql("select 'spark' as hello")
 
 df.show()
 
-
-# # LOCAL RUN
-# spark = SparkSession.builder \
-#     .master('local') \
-#     .appName("Word Count") \
-#     .config("spark.submit.deployMode", "client") \
-#     .getOrCreate()
-
-# df = spark.sql("select 'spark' as hello")
-
-# df.show()
+# Close spark session
+spark.stop()
