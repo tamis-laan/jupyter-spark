@@ -7,7 +7,7 @@ spark = SparkSession.builder \
     .master("k8s://https://172.20.0.2:6443") \
     .appName("Word Count") \
     .config("spark.submit.deployMode","client") \
-    .config("spark.executor.instances", 5) \
+    .config("spark.executor.instances", 1) \
     .config("spark.kubernetes.container.image", "datamechanics/spark:3.2-latest") \
     .config("spark.kubernetes.authenticate.driver.serviceAccountName", "jupyter-notebook-sa") \
     .config("spark.kubernetes.authenticate.serviceAccountName", "jupyter-notebook-sa") \
@@ -17,6 +17,10 @@ spark = SparkSession.builder \
     .config("spark.driver.host", "driver-service.default.svc.cluster.local") \
     .config("spark.driver.bindAddress", "0.0.0.0") \
     .getOrCreate()
+
+
+# CLUSTER RUN
+# spark = SparkSession.builder.appName("DERP").getOrCreate()
 
 df = spark.sql("select 'spark' as hello")
 

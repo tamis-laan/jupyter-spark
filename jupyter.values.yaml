@@ -18,10 +18,33 @@ singleuser:
     # name: jupyter/all-spark-notebook
     # tag: spark-3.1.1
     name: jupyter/pyspark-notebook
-    tag: latest
+    # tag: latest
+    tag: spark-3.2.1
     pullPolicy: IfNotPresent
   extraEnv:
     EDITOR: "vim"
-    SPARK_MASTER_IP: "k8s://https://172.20.0.2:6443"
+    SPARK_MASTER: "k8s://https://172.20.0.2:6443"
     SPARK_SUBMIT_DEPLOY_MODE: "client"
+    SPARK_EXECUTOR_INSTANCES: "2"
+    SPARK_KUBERNETES_CONTAINER_IMAGE: "datamechanics/spark:3.2-latest"
+    SPARK_KUBERNETES_AUTHENTICATE_DRIVER_SERVICEACCOUNTNAME: "jupyter-notebook-sa"
+    SPARK_KUBERNETES_AUTHENTICATE_SERVICEACCOUNTNAME: "jupyter-notebook-sa"
+    SPARK_KUBERNETES_NAMESPACE: "default"
+    SPARK_DRIVER_PORT: "2222"
+    SPARK_DRIVER_BLOCKMANAGER_PORT: "7777"
+    SPARK_DRIVER_HOST: "driver-service.default.svc.cluster.local"
+    SPARK_DRIVER_BINDADDRESS: "0.0.0.0"
+    PYSPARK_SUBMIT_ARGS: |
+      --master k8s://https://172.20.0.2:6443 
+      --deploy-mode client 
+      --conf spark.executor.instances=1 
+      --conf spark.kubernetes.container.image=datamechanics/spark:3.2-latest 
+      --conf spark.kubernetes.authenticate.driver.serviceAccountName=jupyter-notebook-sa 
+      --conf spark.kubernetes.authenticate.serviceAccountName=jupyter-notebook-sa 
+      --conf spark.kubernetes.namespace=default 
+      --conf spark.driver.port=2222 
+      --conf spark.driver.blockManager.port=7777 
+      --conf spark.driver.host=driver-service.default.svc.cluster.local 
+      --conf spark.driver.bindAddress=0.0.0.0 
+      pyspark-shell
   cmd: null
