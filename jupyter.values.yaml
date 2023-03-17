@@ -6,6 +6,7 @@ singleuser:
     tag: latest
   extraEnv:
     EDITOR: "vim"
-    SPARK_MASTER_IP: "k8s://https://127.0.0.1:39287"
-    SPARK_SUBMIT_DEPLOY_MODE: "cluster"
+    SPARK_MASTER_IP: "k8s://https://172.20.0.2:6443"
+    SPARK_SUBMIT_DEPLOY_MODE: "client"
   cmd: null
+  serviceAccountName: jupyter-notebook-sa

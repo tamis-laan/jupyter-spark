@@ -14,6 +14,9 @@ kind create cluster --name jupyter
 # kubectl config set-context --namespace=jupyterhub jupyter
 kubectl config set-context jupyter
 
+# Add permissions for notebooks to talk to the API server
+kubectl apply -f rbac.yaml
+
 # helm upgrade --cleanup-on-fail \
 #   --install my-jupyterhub jupyterhub/jupyterhub \
 #   --create-namespace \
@@ -32,4 +35,5 @@ helm upgrade --cleanup-on-fail \
 # 	--create-namespace
 
 # Set the default namespace
-kubectl config set-context $(kubectl config current-context) --namespace jupyterhub
+# kubectl config set-context $(kubectl config current-context) --namespace jupyterhub
+
